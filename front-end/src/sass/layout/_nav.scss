@@ -1,0 +1,35 @@
+.nav {
+  display: grid;
+  grid-template-columns: 30% 70%;
+  padding: 2rem;
+  padding-bottom: 4rem;
+  color: white;
+  max-width: 79rem;
+  margin-left: auto;
+  margin-right: auto;
+  .logo_nav {
+    width: 10rem;
+    height: 8rem;
+  }
+  p {
+    margin: 0;
+    text-align: end;
+  }
+  button {
+    padding: 0rem;
+    background-color: transparent;
+    border-style: none;
+    cursor: pointer;
+    padding-top: 0.5rem;
+    text-align: end;
+
+    .icon_nav {
+      color: white;
+      font-size: 2.4rem;
+      text-align: end;
+    }
+  }
+  .container_nav-grid {
+    display: grid;
+  }
+}
