@@ -1,0 +1,38 @@
+.balance {
+  max-width: 79rem;
+  margin-right: auto;
+  margin-left: auto;
+  .grid_balance {
+    display: grid;
+    .balance_total {
+      margin: 0.5rem;
+      margin-bottom: 3rem;
+      font-size: 2.8rem;
+      font-weight: bold;
+    }
+    .balance_title {
+      margin: 0;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+    .flex_balance {
+      display: flex;
+      justify-content: space-around;
+      p {
+        margin: 0;
+      }
+      .color_expenses {
+        color: red;
+      }
+      .color_incomes {
+        color: green;
+      }
+      .color_incomes-font {
+        font-size: 2.4rem;
+        margin-top: 0.3rem;
+        margin-bottom: 2rem;
+        font-weight: bold;
+      }
+    }
+  }
+}
