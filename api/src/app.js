@@ -1,7 +1,7 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
-// const routes = require("./routes/index.js");
+const routes = require("./routes/index.js");
 
 // require("./db.js");
 
@@ -36,7 +36,7 @@ server.use((err, req, res, next) => {
   const message = err.message || err;
   res.status(status).send(message);
 });
-
+server.use("/", routes);
 server.get("/", (req, res) => {
   res.json("funcionando");
 });

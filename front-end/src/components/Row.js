@@ -18,9 +18,9 @@ import { BiEditAlt, BiTrash } from "react-icons/bi";
 
 const operationImage = (operation) => {
   if (operation === "income") {
-    return <HiArrowCircleUp />;
+    return <HiArrowCircleUp className="color_incomes" />;
   } else {
-    return <HiArrowCircleDown />;
+    return <HiArrowCircleDown className="color_expenses" />;
   }
 };
 
@@ -64,20 +64,11 @@ function Row() {
 
   mql.addEventListener("change", (e) => {
     if (e.matches) {
-      /* the viewport is 600 pixels wide or less */
       setMedia(true);
-      console.log("This is a narrow screen — less than 600px wide.");
     } else {
-      /* the viewport is more than than 600 pixels wide */
       setMedia(false);
-      console.log("This is a wide screen — more than 600px wide.");
     }
   });
-  //   x.addEventListener("resize", myFunction); // Attach listener function on state changes
-
-  const view = window.matchMedia("(min-width: 400px)").matches;
-  useEffect(() => {}, [view]);
-  console.log(view);
 
   return (
     <div className="row">
@@ -86,7 +77,9 @@ function Row() {
       <p>$300 </p>
       <p>10/05/2021</p>
       <p>
-        {media ? truncate("bank transferparami", 15) : "bank transferparami"}
+        {media
+          ? truncate("bank transferparami", 15)
+          : "bank transferparamiiiiiiiiiii"}
       </p>
       <button className="button_banish">
         <BiEditAlt />

@@ -23,7 +23,7 @@ function Balance({ data, view }) {
               </div>
               <div>
                 <p>
-                  Expenses <HiArrowCircleDown className="color_expenses " />
+                  Expenses <HiArrowCircleDown className="color_expenses" />
                 </p>
                 <p className="color_expenses color_incomes-font">$1,000 USD</p>
               </div>
