@@ -12,7 +12,7 @@ router.delete("/category", (req, res) => {
     if (err) {
       return console.error(err.message);
     }
-    console.log("Successful deleting operation");
+    return res.send("Successful deleting operation");
   });
 });
 module.exports = router;

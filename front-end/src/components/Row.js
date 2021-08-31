@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from "react";
+import moment from "moment";
+import usePagination from "./Pagination";
+import { Pagination } from "@material-ui/lab";
 import { ImHome } from "react-icons/im";
 import { FaHeartbeat } from "react-icons/fa";
 import { IoMdCash } from "react-icons/io";
@@ -47,47 +50,105 @@ const categoryImage = (category) => {
       return <IoMdCash />;
     case "education":
       return <FaGraduationCap />;
-    case "vacations":
+    case "vacation":
       return <FaUmbrellaBeach />;
     case "leisure":
       return <FaTableTennis />;
-    case "others":
+    case "other":
       return <AiFillGift />;
     default:
       console.log(category);
   }
 };
 
-function Row() {
-  const [media, setMedia] = useState(false);
-  const mql = window.matchMedia("(max-width: 400px)");
+const operationType = {
+  1: "income",
+  2: "expense",
+};
+const category = {
+  1: "home",
+  2: "health",
+  3: "food",
+  4: "transport",
+  5: "pet",
+  6: "shopping",
+  7: "bank",
+  8: "cash",
+  9: "education",
+  10: "vacation",
+  11: "leisure",
+  12: "other",
+};
 
-  mql.addEventListener("change", (e) => {
+function Row({ data }) {
+  const [media, setMedia] = useState(false);
+  const viewport = window.matchMedia("(max-width: 400px)");
+
+  let [page, setPage] = useState(1);
+  const per_page = 8;
+
+  const count = Math.ceil(data?.length / per_page);
+  const _DATA = usePagination(data, per_page);
+
+  const handleChange = (e, p) => {
+    setPage(p);
+    _DATA.jump(p);
+  };
+
+  const handlerMedia = (e) => {
     if (e.matches) {
       setMedia(true);
     } else {
       setMedia(false);
     }
-  });
+  };
+
+  if (viewport.matches && !media) {
+    setMedia(true);
+  }
+
+  useEffect(() => {
+    viewport.addEventListener("change", handlerMedia);
+
+    return () => {
+      viewport.removeEventListener("change", handlerMedia);
+    };
+  }, [viewport]);
 
   return (
-    <div className="row">
-      {operationImage("income")}
-      {categoryImage("cash")}
-      <p>$300 </p>
-      <p>10/05/2021</p>
-      <p>
-        {media
-          ? truncate("bank transferparami", 15)
-          : "bank transferparamiiiiiiiiiii"}
-      </p>
-      <button className="button_banish">
-        <BiEditAlt />
-      </button>
-      <button className="button_banish">
-        <BiTrash />
-      </button>
-    </div>
+    <>
+      {_DATA ? (
+        _DATA.currentData()?.map((x, i) => (
+          <div key={i} className="row">
+            <div>{operationImage(x.operation)}</div>
+            <div>{categoryImage(x.category)}</div>
+            <div className="row_text">
+              <p className="margin_rigth">{x.amount}$</p>
+              <p>{moment(x.date).format("L")}</p>
+              <p>{media ? truncate(x.concept, 12) : x.concept}</p>
+            </div>
+            <button className="button_banish">
+              <BiEditAlt />
+            </button>
+            <button className="button_banish">
+              <BiTrash />
+            </button>
+          </div>
+        ))
+      ) : (
+        <p> no row</p>
+      )}
+      <div className="paginationComponent">
+        <Pagination
+          count={count}
+          size="large"
+          page={page}
+          variant="outlined"
+          shape="rounded"
+          onChange={handleChange}
+        />
+      </div>
+    </>
   );
 }
 

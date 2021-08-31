@@ -9,7 +9,7 @@ router.post("/user", (req, res) => {
     if (err) {
       return console.error(err.message);
     }
-    console.log("Successful creation of user");
+    return res.send("Successful creation of user");
   });
 });
 
@@ -17,16 +17,14 @@ router.post("/operation", (req, res) => {
   const { email, idCategory, idOperationType, concept, amount, date } =
     req.body;
   //   "2021-10-29 10:00:00" format
-  const sql_create = `INSERT into operation(id_user,id_category,id_operation_type,concept,amount,date_operation) VALUES("${email}",${idCategory},${idOperationType},"${concept}",${amount},"${date}")`;
+  const sql_create = `INSERT into operation(id_user,id_category,id_operation_type,concept,amount,date_operation) VALUES("${email}",${idCategory},${idOperationType},"${concept}",${amount},"${date}");`;
 
   db.run(sql_create, (err) => {
     if (err) {
       return console.error(err.message);
     }
-    console.log("Successful creation of operation");
+    return res.send("Successful creation of operation");
   });
-
-  res.send("hola");
 });
 
 module.exports = router;
