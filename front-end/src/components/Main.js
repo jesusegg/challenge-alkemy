@@ -60,7 +60,7 @@ function Main() {
           name="transactions"
           className={active.transactions ? "button_underline" : undefined}
         >
-          TRANSACCIONS
+          TRANSACTIONS
         </button>
         <button
           onClick={(e) => handleActive(e)}
