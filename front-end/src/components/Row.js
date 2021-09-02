@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
 import usePagination from "./Pagination";
+import { handleDelete } from "./Main";
 import { Pagination } from "@material-ui/lab";
 import { ImHome } from "react-icons/im";
 import { FaHeartbeat } from "react-icons/fa";
@@ -61,26 +62,26 @@ const categoryImage = (category) => {
   }
 };
 
-const operationType = {
-  1: "income",
-  2: "expense",
-};
-const category = {
-  1: "home",
-  2: "health",
-  3: "food",
-  4: "transport",
-  5: "pet",
-  6: "shopping",
-  7: "bank",
-  8: "cash",
-  9: "education",
-  10: "vacation",
-  11: "leisure",
-  12: "other",
-};
+export const operationType = [
+  { id: 1, name: "income" },
+  { id: 2, name: "expense" },
+];
+export const category = [
+  { id: 1, name: "home" },
+  { id: 2, name: "health" },
+  { id: 3, name: "food" },
+  { id: 4, name: "transport" },
+  { id: 5, name: "pet" },
+  { id: 6, name: "shopping" },
+  { id: 7, name: "bank" },
+  { id: 8, name: "cash" },
+  { id: 9, name: "education" },
+  { id: 10, name: "vacation" },
+  { id: 11, name: "leisure" },
+  { id: 12, name: "other" },
+];
 
-function Row({ data }) {
+function Row({ data, listen }) {
   const [media, setMedia] = useState(false);
   const viewport = window.matchMedia("(max-width: 400px)");
 
@@ -106,14 +107,13 @@ function Row({ data }) {
   if (viewport.matches && !media) {
     setMedia(true);
   }
-
   useEffect(() => {
     viewport.addEventListener("change", handlerMedia);
 
     return () => {
       viewport.removeEventListener("change", handlerMedia);
     };
-  }, [viewport]);
+  }, [viewport, data]);
 
   return (
     <>
@@ -125,18 +125,29 @@ function Row({ data }) {
             <div className="row_text">
               <p className="margin_rigth">{x.amount}$</p>
               <p>{moment(x.date).format("L")}</p>
-              <p>{media ? truncate(x.concept, 12) : x.concept}</p>
+              <p>{media ? truncate(x.concept, 11) : x.concept}</p>
             </div>
             <button className="button_banish">
               <BiEditAlt />
             </button>
-            <button className="button_banish">
+            <button
+              onClick={() => {
+                handleDelete(x.id);
+                listen(new Date());
+              }}
+              className="button_banish"
+            >
               <BiTrash />
             </button>
           </div>
         ))
       ) : (
         <p> no row</p>
+      )}
+      {data?.length === 0 && (
+        <p className="no_operation">
+          you dont have any operation in this category yet
+        </p>
       )}
       <div className="paginationComponent">
         <Pagination

@@ -2,14 +2,33 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
 import Balance from "./Balance";
+import Transactions from "./Transactions";
+
+export const handleDelete = (operationiId) => {
+  axios
+    .delete(`http://localhost:3001/delete/operation`, {
+      data: { id: operationiId },
+    })
+    .then()
+    .catch((err) => console.log(err));
+};
 
 function Main() {
   const { user } = useAuth0();
+  const [listen, setListen] = useState();
   const [active, setActive] = useState({
     home: true,
     transactions: false,
     addNew: false,
   });
+  const handleActive = (e) => {
+    setActive({
+      home: false,
+      transactions: false,
+      addNew: false,
+      [e.target.name]: true,
+    });
+  };
 
   useEffect(() => {
     axios
@@ -22,24 +41,41 @@ function Main() {
         }
       })
       .catch((err) => console.log(err));
-  }, [user?.email]);
+
+    axios.get(`http://localhost:3001/get/balance?email=${user?.email}`).then();
+  }, [user?.email, listen]);
 
   return (
     <div>
       <div className="transaction_menu">
-        <button className={active.home ? "button_underline" : undefined}>
+        <button
+          onClick={(e) => handleActive(e)}
+          className={active.home ? "button_underline" : undefined}
+          name="home"
+        >
           HOME
         </button>
         <button
+          onClick={(e) => handleActive(e)}
+          name="transactions"
           className={active.transactions ? "button_underline" : undefined}
         >
           TRANSACCIONS
         </button>
-        <button className={active.addNew ? "button_underline" : undefined}>
+        <button
+          onClick={(e) => handleActive(e)}
+          name="addNew"
+          className={active.addNew ? "button_underline" : undefined}
+        >
           ADD NEW
         </button>
       </div>
-      <Balance view={active.home} user={user?.email} />
+      <Balance view={active.home} user={user?.email} listen={setListen} />
+      <Transactions
+        view={active.transactions}
+        user={user?.email}
+        listen={setListen}
+      />
     </div>
   );
 }

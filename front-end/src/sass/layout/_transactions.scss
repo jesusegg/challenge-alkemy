@@ -1,0 +1,13 @@
+.transaction_buttons {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+
+  .transaction_buttons-operations {
+    display: flex;
+    justify-content: space-around;
+    button {
+      margin: 2rem;
+      font-size: 2rem;
+    }
+  }
+}

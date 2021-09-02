@@ -2,9 +2,9 @@ const { Router } = require("express");
 const { db } = require("../db");
 const router = Router();
 
-router.delete("/category", (req, res) => {
+router.delete("/operation", (req, res) => {
   const { id } = req.body;
-
+  console.log(id);
   const sql_create = `DELETE FROM operation
      WHERE id=${id};`;
 
