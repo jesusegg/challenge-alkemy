@@ -3,6 +3,7 @@ import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
 import Balance from "./Balance";
 import Transactions from "./Transactions";
+import AddOperation from "./AddOperation";
 
 export const handleDelete = (operationiId) => {
   axios
@@ -76,6 +77,7 @@ function Main() {
         user={user?.email}
         listen={setListen}
       />
+      <AddOperation view={active.home} user={user?.email} />
     </div>
   );
 }
