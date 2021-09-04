@@ -1,14 +1,14 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import { makeStyles } from "@mui/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import logo from "../img/logo-3d-png-9039.png";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    // "& > *": {
-    //   margin: theme.spacing(1),
-    // },
+    "& > *": {
+      margin: theme.spacing(1),
+    },
     backgroundColor: "#635DFF",
     color: "white",
     "&:active": {

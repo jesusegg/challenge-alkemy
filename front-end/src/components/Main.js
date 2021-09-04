@@ -15,7 +15,7 @@ export const handleDelete = (operationiId) => {
 };
 
 function Main() {
-  const { user } = useAuth0();
+  const { user, isAuthenticated } = useAuth0();
   const [listen, setListen] = useState();
   const [active, setActive] = useState({
     home: true,
@@ -47,38 +47,40 @@ function Main() {
   }, [user?.email, listen]);
 
   return (
-    <div>
-      <div className="transaction_menu">
-        <button
-          onClick={(e) => handleActive(e)}
-          className={active.home ? "button_underline" : undefined}
-          name="home"
-        >
-          HOME
-        </button>
-        <button
-          onClick={(e) => handleActive(e)}
-          name="transactions"
-          className={active.transactions ? "button_underline" : undefined}
-        >
-          TRANSACTIONS
-        </button>
-        <button
-          onClick={(e) => handleActive(e)}
-          name="addNew"
-          className={active.addNew ? "button_underline" : undefined}
-        >
-          ADD NEW
-        </button>
+    isAuthenticated && (
+      <div>
+        <div className="transaction_menu">
+          <button
+            onClick={(e) => handleActive(e)}
+            className={active.home ? "button_underline" : undefined}
+            name="home"
+          >
+            HOME
+          </button>
+          <button
+            onClick={(e) => handleActive(e)}
+            name="transactions"
+            className={active.transactions ? "button_underline" : undefined}
+          >
+            TRANSACTIONS
+          </button>
+          <button
+            onClick={(e) => handleActive(e)}
+            name="addNew"
+            className={active.addNew ? "button_underline" : undefined}
+          >
+            ADD NEW
+          </button>
+        </div>
+        <Balance view={active.home} user={user?.email} listen={setListen} />
+        <Transactions
+          view={active.transactions}
+          user={user?.email}
+          listen={setListen}
+        />
+        <AddOperation view={active.home} user={user?.email} />
       </div>
-      <Balance view={active.home} user={user?.email} listen={setListen} />
-      <Transactions
-        view={active.transactions}
-        user={user?.email}
-        listen={setListen}
-      />
-      <AddOperation view={active.home} user={user?.email} />
-    </div>
+    )
   );
 }
 
