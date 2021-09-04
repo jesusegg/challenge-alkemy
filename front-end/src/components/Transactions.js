@@ -7,14 +7,14 @@ import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Row, { category } from "../components/Row";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   formControl: {
-    margin: theme.spacing(1),
+    // margin: theme.spacing(1),
     minWidth: 120,
   },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
+  // selectEmpty: {
+  //   marginTop: theme.spacing(2),
+  // },
   option: {
     fontSize: "14px",
   },

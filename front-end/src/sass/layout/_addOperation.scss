@@ -1,0 +1,23 @@
+.buttons_addOperation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  button {
+    padding: 2rem 4rem;
+    border-radius: 1rem;
+    cursor: pointer;
+  }
+  .button_background {
+    background-color: rgba(33, 46, 226, 0.973);
+    color: white;
+  }
+}
+.div_calendary {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+}
