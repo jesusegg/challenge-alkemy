@@ -78,7 +78,7 @@ function Main() {
           user={user?.email}
           listen={setListen}
         />
-        <AddOperation view={active.home} user={user?.email} />
+        <AddOperation view={active.addNew} user={user?.email} />
       </div>
     )
   );

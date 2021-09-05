@@ -8,10 +8,10 @@
     border-radius: 1rem;
     cursor: pointer;
   }
-  .button_background {
-    background-color: rgba(33, 46, 226, 0.973);
-    color: white;
-  }
+}
+.button_background {
+  background-color: rgba(33, 46, 226, 0.973);
+  color: white;
 }
 .div_calendary {
   display: flex;
@@ -20,4 +20,34 @@
   width: 95%;
   margin-left: auto;
   margin-right: auto;
+}
+.grid_AddOperation {
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  .category_Selected-background {
+    background-color: rgba(33, 46, 226, 0.973);
+    color: white;
+    border-radius: 1rem;
+  }
+  .div_AddOperation {
+    margin: 2rem 0;
+    cursor: pointer;
+    padding: 1rem 0;
+  }
+  p {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+}
+.category_title {
+  margin-bottom: 0;
+  font-weight: 600;
+}
+.input_category {
+  margin: 2rem auto;
+  border-radius: 0.5rem;
 }
