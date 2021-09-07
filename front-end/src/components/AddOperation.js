@@ -5,6 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import MaterialUIPickers from "./Calendary";
 import { categoryImage } from "./Row";
 import { category } from "./Row";
+import Swal from "sweetalert2";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -47,20 +48,50 @@ function AddOperation({ view, user }) {
       date &&
       refInput.current?.value
     ) {
-      const data = {
-        email: user,
-        idCategory: refCategory.current?.value,
-        idOperationType: refButtons.current?.value,
-        concept: refInput.current?.value,
-        amount: refAmount.current?.value,
-        date: date,
-      };
+      Swal.fire({
+        title: "Do you want to save to changes?",
+        showDenyButton: true,
+        icon: "question",
+        confirmButtonText: `Save`,
+        denyButtonText: `Don't save`,
+        confirmButtonColor: "#9ea03b",
+        denyButtonColor: "#313b1e",
+        iconColor: "#9ea03b",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire({
+            title: "Saved!",
+            text: "",
+            icon: "success",
+            confirmButtonColor: "#9ea03b",
+          });
+          const data = {
+            email: user,
+            idCategory: refCategory.current?.value,
+            idOperationType: refButtons.current?.value,
+            concept: refInput.current?.value,
+            amount: refAmount.current?.value,
+            date: date,
+          };
 
-      axios.post("http://localhost:3001/post/operation", data).then();
-      setUpgrade(!upgrade);
-      alert("funciona");
+          axios.post("http://localhost:3001/post/operation", data).then();
+          setUpgrade(!upgrade);
+        } else if (result.isDenied) {
+          Swal.fire({
+            title: "Changes are not saved",
+            text: "",
+            icon: "info",
+            confirmButtonColor: "#9ea03b",
+          });
+        }
+      });
     } else {
-      alert("faltan datos");
+      Swal.fire({
+        title: "Changes are not saved",
+        text: "",
+        icon: "info",
+        confirmButtonColor: "#9ea03b",
+      });
     }
   };
 
