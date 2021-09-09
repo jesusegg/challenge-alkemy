@@ -81,7 +81,7 @@ export const category = [
   { id: 12, name: "other" },
 ];
 
-function Row({ data, listen }) {
+function Row({ data }) {
   const [media, setMedia] = useState(false);
   const viewport = window.matchMedia("(max-width: 400px)");
 
@@ -133,7 +133,6 @@ function Row({ data, listen }) {
             <button
               onClick={() => {
                 handleDelete(x.id);
-                listen(new Date());
               }}
               className="button_banish"
             >

@@ -27,4 +27,5 @@ yarn.lock
 
 # package-lock.json
 package-lock.json
+yarn.lock
 "../api/package-lock.json"

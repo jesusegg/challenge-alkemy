@@ -2,35 +2,51 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { HiArrowCircleUp } from "react-icons/hi";
 import { HiArrowCircleDown } from "react-icons/hi";
+import {
+  functionBalance,
+  functionTotalIncomes,
+  functionTotalExpenses,
+} from "./axios";
 import Row from "./Row";
 
-function Balance({ listen, view, user }) {
-  const [balance, setBalance] = useState();
-  const [totalIncomes, setTotalIncomes] = useState();
-  const [totalExpenses, setTotalExpenses] = useState();
+function Balance({
+  listen,
+  view,
+  user,
+  balance,
+  setBalance,
+  setTotalExpenses,
+  totalExpenses,
+  setTotalIncomes,
+  totalIncomes,
+}) {
+  // const [balance, setBalance] = useState();
+  // const [totalIncomes, setTotalIncomes] = useState();
+  // const [totalExpenses, setTotalExpenses] = useState();
 
-  const functionBalance = (user) => {
-    axios
-      .get(`http://localhost:3001/get/balance?email=${user}`)
-      .then((res) => setBalance(res.data))
-      .catch((err) => console.log(err));
-  };
-  const functionTotalIncomes = (user, type) => {
-    axios
-      .get(`http://localhost:3001/get/amount?email=${user}&type=${type}`)
-      .then((res) => setTotalIncomes(res.data.SumAmount))
-      .catch((err) => console.log(err));
-  };
-  const functionTotalExpenses = (user, type) => {
-    axios
-      .get(`http://localhost:3001/get/amount?email=${user}&type=${type}`)
-      .then((res) => setTotalExpenses(res.data.SumAmount))
-      .catch((err) => console.log(err));
-  };
+  // const functionBalance = (user) => {
+  //   axios
+  //     .get(`http://localhost:3001/get/balance?email=${user}`)
+  //     .then((res) => setBalance(res.data))
+  //     .catch((err) => console.log(err));
+  // };
+  // const functionTotalIncomes = (user, type) => {
+  //   axios
+  //     .get(`http://localhost:3001/get/amount?email=${user}&type=${type}`)
+  //     .then((res) => setTotalIncomes(res.data.SumAmount))
+  //     .catch((err) => console.log(err));
+  // };
+  // const functionTotalExpenses = (user, type) => {
+  //   axios
+  //     .get(`http://localhost:3001/get/amount?email=${user}&type=${type}`)
+  //     .then((res) => setTotalExpenses(res.data.SumAmount))
+  //     .catch((err) => console.log(err));
+  // };
+
   useEffect(() => {
-    functionBalance(user);
-    functionTotalIncomes(user, 1);
-    functionTotalExpenses(user, 2);
+    functionBalance(user, setBalance);
+    functionTotalIncomes(user, 1, setTotalIncomes);
+    functionTotalExpenses(user, 2, setTotalExpenses);
   }, [user]);
 
   return (

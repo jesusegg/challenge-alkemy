@@ -5,6 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Select from "@material-ui/core/Select";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
+import { functionOperationType } from "./axios";
 import Row, { category } from "../components/Row";
 
 const useStyles = makeStyles(() => ({
@@ -20,22 +21,21 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function Transactions({ view, user, listen }) {
+function Transactions({ view, user, listen, operation, setOperation }) {
   const classes = useStyles();
-  const [operation, setOperation] = useState(undefined);
-  const ref = useRef();
+  // const [operation, setOperation] = useState(undefined);
   const [state, setState] = useState({
     category: undefined,
   });
 
-  const functionOperationType = (user, type) => {
-    axios
-      .get(`http://localhost:3001/get/type?email=${user}&type=${type}`)
-      .then((res) =>
-        res.length === 0 ? setOperation(null) : setOperation(res.data)
-      )
-      .catch((err) => console.log(err));
-  };
+  // const functionOperationType = (user, type) => {
+  //   axios
+  //     .get(`http://localhost:3001/get/type?email=${user}&type=${type}`)
+  //     .then((res) =>
+  //       res.length === 0 ? setOperation(null) : setOperation(res.data)
+  //     )
+  //     .catch((err) => console.log(err));
+  // };
 
   const functionCategory = (user, category) => {
     axios
@@ -59,7 +59,7 @@ function Transactions({ view, user, listen }) {
 
   useEffect(() => {
     if (operation === undefined && user) {
-      functionOperationType(user, 1);
+      functionOperationType(user, 1, setOperation);
     }
   }, [user, operation]);
 
@@ -71,7 +71,9 @@ function Transactions({ view, user, listen }) {
             <div className="transaction_buttons-operations">
               <div>
                 <button
-                  onClick={(e) => functionOperationType(user, e.target.value)}
+                  onClick={(e) =>
+                    functionOperationType(user, e.target.value, setOperation)
+                  }
                   className="button_banish"
                   value={1}
                 >
@@ -82,7 +84,9 @@ function Transactions({ view, user, listen }) {
                 <button
                   className="button_banish"
                   value={2}
-                  onClick={(e) => functionOperationType(user, e.target.value)}
+                  onClick={(e) =>
+                    functionOperationType(user, e.target.value, setOperation)
+                  }
                 >
                   expenses <HiArrowCircleDown className="color_expenses" />
                 </button>
