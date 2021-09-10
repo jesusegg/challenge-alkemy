@@ -36,7 +36,7 @@ function Transactions({ view, user, listen, operation, setOperation }) {
   //     )
   //     .catch((err) => console.log(err));
   // };
-
+  // console.log(operation);
   const functionCategory = (user, category) => {
     axios
       .get(
@@ -121,7 +121,12 @@ function Transactions({ view, user, listen, operation, setOperation }) {
               </FormControl>
             </div>
           </div>
-          <Row data={operation} listen={listen} />
+          <Row
+            user={user}
+            data={operation}
+            operation={operation}
+            setOperation={setOperation}
+          />
         </div>
       </div>
     )

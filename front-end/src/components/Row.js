@@ -1,11 +1,24 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
 import usePagination from "./Pagination";
-import { handleDelete } from "./Main";
+import axios from "axios";
+import ModalDetail from "./ModalDetail";
 import { Pagination } from "@material-ui/lab";
 import { ImHome } from "react-icons/im";
 import { FaHeartbeat } from "react-icons/fa";
 import { IoMdCash } from "react-icons/io";
+import { MdPets } from "react-icons/md";
+import { IoFastFood } from "react-icons/io5";
+import { GiBank } from "react-icons/gi";
+import { AiFillGift } from "react-icons/ai";
+import { HiArrowCircleUp, HiArrowCircleDown } from "react-icons/hi";
+import { BiEditAlt, BiTrash } from "react-icons/bi";
+import {
+  functionBalance,
+  functionTotalIncomes,
+  functionTotalExpenses,
+  functionOperationType,
+} from "./axios";
 import {
   FaBusAlt,
   FaShoppingCart,
@@ -13,12 +26,6 @@ import {
   FaUmbrellaBeach,
   FaTableTennis,
 } from "react-icons/fa";
-import { MdPets } from "react-icons/md";
-import { IoFastFood } from "react-icons/io5";
-import { GiBank } from "react-icons/gi";
-import { AiFillGift } from "react-icons/ai";
-import { HiArrowCircleUp, HiArrowCircleDown } from "react-icons/hi";
-import { BiEditAlt, BiTrash } from "react-icons/bi";
 
 const operationImage = (operation) => {
   if (operation === "income") {
@@ -81,7 +88,15 @@ export const category = [
   { id: 12, name: "other" },
 ];
 
-function Row({ data }) {
+function Row({
+  data,
+  user,
+  setBalance,
+  setTotalIncomes,
+  setTotalExpenses,
+  operation,
+  setOperation,
+}) {
   const [media, setMedia] = useState(false);
   const viewport = window.matchMedia("(max-width: 400px)");
 
@@ -102,6 +117,25 @@ function Row({ data }) {
     } else {
       setMedia(false);
     }
+  };
+  const handleHome = () => {
+    functionBalance(user, setBalance);
+    functionTotalIncomes(user, 1, setTotalIncomes);
+    functionTotalExpenses(user, 2, setTotalExpenses);
+  };
+  const handleDelete = (operationiId) => {
+    axios
+      .delete(`http://localhost:3001/delete/operation`, {
+        data: { id: operationiId },
+      })
+      .then(() => {
+        setBalance && handleHome();
+        operation[0]?.operation === "income" &&
+          functionOperationType(user, 1, setOperation);
+        operation[0]?.operation === "expense" &&
+          functionOperationType(user, 2, setOperation);
+      })
+      .catch((err) => console.log(err));
   };
 
   if (viewport.matches && !media) {
@@ -125,7 +159,10 @@ function Row({ data }) {
             <div className="row_text">
               <p className="margin_rigth">{x.amount}$</p>
               <p>{moment(x.date).format("L")}</p>
-              <p>{media ? truncate(x.concept, 11) : x.concept}</p>
+              <ModalDetail
+                description={media ? truncate(x.concept, 11) : x.concept}
+              />
+              {/* <p>{media ? truncate(x.concept, 11) : x.concept}</p> */}
             </div>
             <button className="button_banish">
               <BiEditAlt />
@@ -133,6 +170,7 @@ function Row({ data }) {
             <button
               onClick={() => {
                 handleDelete(x.id);
+                setBalance && handleHome();
               }}
               className="button_banish"
             >
@@ -143,11 +181,13 @@ function Row({ data }) {
       ) : (
         <p> no row</p>
       )}
+
       {data?.length === 0 && (
         <p className="no_operation">
           you dont have any operation in this category yet
         </p>
       )}
+
       <div className="paginationComponent">
         <Pagination
           count={count}

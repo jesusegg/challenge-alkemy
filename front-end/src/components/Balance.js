@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import Row from "./Row";
 import { HiArrowCircleUp } from "react-icons/hi";
 import { HiArrowCircleDown } from "react-icons/hi";
 import {
@@ -7,7 +7,6 @@ import {
   functionTotalIncomes,
   functionTotalExpenses,
 } from "./axios";
-import Row from "./Row";
 
 function Balance({
   listen,
@@ -80,7 +79,13 @@ function Balance({
         <div className="container_transaction">
           <p className="last_moviments">Last Movements</p>
           {balance?.length > 0 ? (
-            <Row data={balance} listen={listen} />
+            <Row
+              data={balance}
+              user={user}
+              setBalance={setBalance}
+              setTotalIncomes={setTotalIncomes}
+              setTotalExpenses={setTotalExpenses}
+            />
           ) : (
             <p className="no_operation">you dont have any movements yet</p>
           )}

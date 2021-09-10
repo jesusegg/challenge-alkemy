@@ -2,23 +2,14 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
 import Balance from "./Balance";
+import Transactions from "./Transactions";
+import AddOperation from "./AddOperation";
 import {
   functionBalance,
   functionTotalIncomes,
   functionTotalExpenses,
   functionOperationType,
 } from "./axios";
-import Transactions from "./Transactions";
-import AddOperation from "./AddOperation";
-
-export const handleDelete = (operationiId) => {
-  axios
-    .delete(`http://localhost:3001/delete/operation`, {
-      data: { id: operationiId },
-    })
-    .then()
-    .catch((err) => console.log(err));
-};
 
 function Main() {
   const { user, isAuthenticated } = useAuth0();
