@@ -3,10 +3,6 @@ import Modal from "@material-ui/core/Modal";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 
-// function rand() {
-//   return Math.round(Math.random() * 20) - 10;
-// }
-
 function getModalStyle() {
   const top = 50;
   const left = 50;
@@ -21,9 +17,6 @@ function getModalStyle() {
 const useStyles = makeStyles((theme) =>
   createStyles({
     paper: {
-      //   display: "flex",
-      //   justifyContent: "center",
-      //   alignItems: "center",
       position: "fixed",
       width: "50em",
       height: "25em",
@@ -44,14 +37,8 @@ const useStyles = makeStyles((theme) =>
       },
     },
     btnProperties: {
-      //   margin: "5px auto",
-      //   width: "140px",
-      //   height: "20px",
       backgroundColor: "transparent",
       border: "none",
-      //   boxSizing: "border-box",
-      //   boxShadow: "0px 2px 2px rgba(0, 0, 0, 0.25)",
-      //   borderRadius: "5px",
       cursor: "pointer",
     },
     field: {

@@ -36,7 +36,7 @@ const operationImage = (operation) => {
 };
 
 const truncate = (str, n) =>
-  str?.length > n ? str.substring(0, n - 1) + "..." : str; //funcion para recortar parrafos y dejar los ...
+  str?.length > n ? str.substring(0, n - 1) + "..." : str;
 
 export const categoryImage = (category) => {
   switch (category) {
@@ -162,7 +162,6 @@ function Row({
               <ModalDetail
                 description={media ? truncate(x.concept, 11) : x.concept}
               />
-              {/* <p>{media ? truncate(x.concept, 11) : x.concept}</p> */}
             </div>
             <button className="button_banish">
               <BiEditAlt />

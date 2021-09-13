@@ -19,29 +19,6 @@ function Balance({
   setTotalIncomes,
   totalIncomes,
 }) {
-  // const [balance, setBalance] = useState();
-  // const [totalIncomes, setTotalIncomes] = useState();
-  // const [totalExpenses, setTotalExpenses] = useState();
-
-  // const functionBalance = (user) => {
-  //   axios
-  //     .get(`http://localhost:3001/get/balance?email=${user}`)
-  //     .then((res) => setBalance(res.data))
-  //     .catch((err) => console.log(err));
-  // };
-  // const functionTotalIncomes = (user, type) => {
-  //   axios
-  //     .get(`http://localhost:3001/get/amount?email=${user}&type=${type}`)
-  //     .then((res) => setTotalIncomes(res.data.SumAmount))
-  //     .catch((err) => console.log(err));
-  // };
-  // const functionTotalExpenses = (user, type) => {
-  //   axios
-  //     .get(`http://localhost:3001/get/amount?email=${user}&type=${type}`)
-  //     .then((res) => setTotalExpenses(res.data.SumAmount))
-  //     .catch((err) => console.log(err));
-  // };
-
   useEffect(() => {
     functionBalance(user, setBalance);
     functionTotalIncomes(user, 1, setTotalIncomes);
