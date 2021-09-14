@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) =>
   createStyles({
     paper: {
       position: "fixed",
-      width: "50em",
+      width: "80%",
       height: "25em",
       right: "0",
       left: "0",
@@ -43,6 +43,8 @@ const useStyles = makeStyles((theme) =>
     },
     field: {
       width: "12rem",
+      textAlign: "center",
+      color: "red",
     },
     root: {
       "& > *": {
@@ -70,7 +72,7 @@ export default function ModalDetail({ description }) {
   const body = (
     <div style={modalStyle} className={classes.paper}>
       <button>regresa</button>
-      <input type="text" />
+      <p>Transaction Detail</p>
 
       <div>
         <form className={classes.root} noValidate autoComplete="off">
@@ -78,6 +80,9 @@ export default function ModalDetail({ description }) {
             className={classes.field}
             id="standard-basic"
             label="Standard"
+            value="bola"
+            type="text"
+            inputProps={{ style: { textAlign: "center" } }}
           />
         </form>
       </div>
