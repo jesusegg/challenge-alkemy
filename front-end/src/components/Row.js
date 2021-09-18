@@ -161,6 +161,11 @@ function Row({
               <p>{moment(x.date).format("L")}</p>
               <ModalDetail
                 description={media ? truncate(x.concept, 11) : x.concept}
+                image={categoryImage(x.category)}
+                type={x.operation}
+                date={moment(x.date).format("L")}
+                category={x.category}
+                amount={x.amount}
               />
             </div>
             <button className="button_banish">

@@ -1,7 +1,9 @@
 import React from "react";
 import Modal from "@material-ui/core/Modal";
 import TextField from "@material-ui/core/TextField";
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
+
+const viewport = window.matchMedia("(max-width: 400px)");
 
 function getModalStyle() {
   const top = 50;
@@ -18,7 +20,7 @@ const useStyles = makeStyles((theme) =>
   createStyles({
     paper: {
       position: "fixed",
-      width: "80%",
+      width: viewport.matches ? "80%" : "50%",
       height: "25em",
       right: "0",
       left: "0",
@@ -46,16 +48,31 @@ const useStyles = makeStyles((theme) =>
       textAlign: "center",
       color: "red",
     },
+    field2: {
+      width: "90%",
+      textAlign: "center",
+      color: "red",
+    },
     root: {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
       "& > *": {
         margin: theme.spacing(1),
-        width: "25ch",
+        width: "80%",
       },
     },
   })
 );
 
-export default function ModalDetail({ description }) {
+export default function ModalDetail({
+  description,
+  type,
+  image,
+  date,
+  category,
+  amount,
+}) {
   const classes = useStyles();
 
   const [modalStyle] = React.useState(getModalStyle);
@@ -80,7 +97,42 @@ export default function ModalDetail({ description }) {
             className={classes.field}
             id="standard-basic"
             label="Standard"
-            value="bola"
+            value={type}
+            type="text"
+            inputProps={{ style: { textAlign: "center" } }}
+          />
+        </form>
+        <div className="grid_modal">
+          <div>
+            <TextField
+              className={classes.field2}
+              id="standard-basic"
+              label="Standard"
+              value={amount + "$"}
+              type="text"
+              inputProps={{ style: { textAlign: "center" } }}
+            />
+            <TextField
+              className={classes.field2}
+              id="standard-basic"
+              label="Standard"
+              value={date}
+              type="text"
+              inputProps={{ style: { textAlign: "center" } }}
+            />
+          </div>
+          <div>
+            <p>Category</p>
+            {image}
+            <p>{category}</p>
+          </div>
+        </div>
+        <form className={classes.root} noValidate autoComplete="off">
+          <TextField
+            className={classes.field}
+            id="standard-basic"
+            label="Standard"
+            value={description}
             type="text"
             inputProps={{ style: { textAlign: "center" } }}
           />
